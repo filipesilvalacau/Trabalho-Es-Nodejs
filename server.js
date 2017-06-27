@@ -37,6 +37,23 @@ router.get('/', function(req, res) {
 // Rotas que irão terminar em '/usuarios' - (servem tanto para: GET All & POST)
 router.route('/usuarios')
 
+    // CREATE (acessar em: POST http://localhost:3000/usuarios 
+    .post(function(req, res) {
+        var usuario = new Usuario();
+
+        //aqui setamos os campos do usuario (que virá do request)
+        usuario.nome = req.body.nome;
+        usuario.login = req.body.login;
+        usuario.senha = req.body.senha;
+
+        usuario.save(function(error) {
+            if(error)
+                res.send(error);
+                        
+            res.json({ message: 'Usuário criado!' });
+        });
+    })
+
  
 
 /* Todas as nossas rotas serão prefixadas com '/api' */
